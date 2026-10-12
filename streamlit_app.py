@@ -2,6 +2,8 @@ import streamlit as st
 
 import pandas as pd
 
+from sklearn.ensemble import RandomForestClassifier
+
 st.title('🕹 Machine Learning App')
 
 st.info('This app is build on machine learning mode! ')
@@ -70,6 +72,17 @@ with st.expander('Data Preparation'):
   st.write('**Encoded y**')
   y
 
+
+# Model Training and inference
+## Train the ML model
+clf = RandomForestClassifier()
+clf.fit(x_raw,y)
+
+## Apply model to make predictions
+prediction = clf.predict(input_row)
+prediction_proba = clf.predict_proba(input_row)
+
+prediction_proba
 
 
 
