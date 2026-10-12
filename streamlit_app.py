@@ -12,12 +12,12 @@ with st.expander('Data'):
   df
 
   st.write('**X**')
-  x = df.drop('species', axis = 1)
-  x
+  x_raw = df.drop('species', axis = 1)
+  x_raw
 
   st.write('**Y**')
-  Y = df.species
-  Y
+  y_raw = df.species
+  y_raw
 
 with st.expander('Data Visualization'):
   #"bill_length_mm","bill_depth_mm","flipper_length_mm","body_mass_g","sex"
@@ -41,20 +41,30 @@ with st.sidebar:
           'body_mass_g': body_mass_g,
           'sex': gender}
   input_df = pd.DataFrame(data, index=[0])
-  input_penguins = pd.concat([input_df, x], axis=0)
+  input_penguins = pd.concat([input_df, x_raw], axis=0)
 
-  # Encode 
-  encode = ['island', 'sex']
-  df_penguins = pd.get_dummies(input_penguins, prefix=encode)
-  input_row = df_penguins[:1]
+# Encode x
+encode = ['island', 'sex']
+df_penguins = pd.get_dummies(input_penguins, prefix=encode)
+input_row = df_penguins[:1]
+
+# Encode y
+target_mapper = {'Adelie': 0,
+                 'Chinstrap': 1,
+                 'Gentoo' : 2}
+def target_encode(val):
+  return target_mapper[val]
+
 
 with st.expander('Input Features'):
   st.write('***Input Penguin***')
   input_df
   st.write('***Combine Penguin Data***')
   input_penguins
-  st.write('Encoded input Penguin')
+  st.write('**Encoded input Penguin**')
   input_row
+
+
 
 
   
