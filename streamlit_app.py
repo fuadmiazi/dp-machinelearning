@@ -34,25 +34,29 @@ with st.sidebar:
   gender = st.selectbox('Gender', ('Male', 'Female'))
 
   # Create a DataFrame for the input features
-data = {'island': island,
-        'bill_length_mm': bill_length_mm,
-        'bill_depth_mm': bill_depth_mm,
-        'flipper_length_mm': flipper_length_mm,
-        'body_mass_g': body_mass_g,
-        'sex': gender}
-input_df = pd.DataFrame(data, index=[0])
-input_penguins = pd.concat([input_df, x], axis=0)
+  data = {'island': island,
+          'bill_length_mm': bill_length_mm,
+          'bill_depth_mm': bill_depth_mm,
+          'flipper_length_mm': flipper_length_mm,
+          'body_mass_g': body_mass_g,
+          'sex': gender}
+  input_df = pd.DataFrame(data, index=[0])
+  input_penguins = pd.concat([input_df, x], axis=0)
+
+  # Encode 
+  encode = ['island', 'sex']
+  df_penguins = pd.get_dummies(input_penguins, prefix=encode)
+  input_row = df_penguins[:1]
 
 with st.expander('Input Features'):
   st.write('***Input Penguin***')
   input_df
   st.write('***Combine Penguin Data***')
   input_penguins
+  st.write('Encoded input Penguin')
+  input_row
 
-# Encode 
-encode = ['island', 'sex']
-df_penguins = pd.get_dummies(input_penguins, prefix=encode)
-df_penguins[:1]
+
   
   
   
